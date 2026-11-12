@@ -1,0 +1,55 @@
+@import "tailwindcss";
+
+/* 深浅色采用 class 策略（<html class="dark">）：
+   首帧由 layout 内联脚本写入，后续由 ThemeToggle 切换并持久化 */
+@custom-variant dark (&:where(.dark, .dark *));
+
+/* 将 CSS 变量映射为 Tailwind 颜色 token，深浅色切换只换变量值 */
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-border: var(--border);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+}
+
+:root {
+  --background: #fafafa;
+  --foreground: #18181b;
+  --card: #ffffff;
+  --muted: #f4f4f5;
+  --muted-foreground: #71717a;
+  --border: #e4e4e7;
+  --primary: #4f46e5;
+  --primary-foreground: #ffffff;
+}
+
+.dark {
+  --background: #0a0a0c;
+  --foreground: #fafafa;
+  --card: #151517;
+  --muted: #1f1f23;
+  --muted-foreground: #a1a1aa;
+  --border: #2a2a2f;
+  --primary: #818cf8;
+  --primary-foreground: #0a0a0c;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family:
+    -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue",
+    Arial, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+  background-color: var(--background);
+  color: var(--foreground);
+}
+
+::selection {
+  background-color: color-mix(in srgb, var(--primary) 25%, transparent);
+}
