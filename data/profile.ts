@@ -7,8 +7,10 @@ export const profile = {
   status: "2027 届本科应届生 · 正在求职",
   location: "湖北武汉",
   email: "1251717963@qq.com",
-  github: "https://github.com/shang-zixuan",
+  github: "https://github.com/Shang1254",
   gitee: "https://gitee.com/shang-zixuan",
+  /** 简历 PDF（Contact / About 页提供下载） */
+  resumePdf: "/resume/resume.pdf",
   jobIntents: ["Java 后端开发", "前端开发", "后端开发"],
   stats: [
     { value: "3 个", label: "完整上线项目" },

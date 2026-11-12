@@ -26,9 +26,30 @@ export default function AboutPage() {
             {profile.intro.map((paragraph) => (
               <p key={paragraph.slice(0, 12)}>{paragraph}</p>
             ))}
-            <p className="text-muted-foreground">
-              📍 {profile.location}
-            </p>
+            <p className="text-muted-foreground">📍 {profile.location}</p>
+            <div>
+              <a
+                href={profile.resumePdf}
+                download="商子轩-全栈开发-简历.pdf"
+                className="inline-flex items-center gap-2 rounded-lg bg-primary px-4 py-2 text-sm font-medium text-primary-foreground transition hover:opacity-90"
+              >
+                <svg
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth={2}
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  className="h-4 w-4"
+                  aria-hidden
+                >
+                  <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+                  <path d="m7 10 5 5 5-5" />
+                  <path d="M12 15V3" />
+                </svg>
+                下载简历 PDF
+              </a>
+            </div>
           </div>
         </div>
       </section>

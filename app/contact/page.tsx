@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { profile } from "@/data/profile";
 import SocialLinks from "@/components/SocialLinks";
 import SectionHeading from "@/components/SectionHeading";
 
@@ -16,7 +17,15 @@ export default function ContactPage() {
       />
       <SocialLinks variant="cards" />
       <p className="mt-8 text-sm text-muted-foreground">
-        招聘相关的邮件建议在主题中注明「求职」，方便我优先处理。
+        招聘相关的邮件建议在主题中注明「求职」，方便我优先处理；需要更详细的资料，可
+        <a
+          href={profile.resumePdf}
+          download="商子轩-全栈开发-简历.pdf"
+          className="mx-1 text-primary hover:underline"
+        >
+          下载简历 PDF
+        </a>
+        。
       </p>
     </div>
   );

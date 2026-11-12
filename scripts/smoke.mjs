@@ -5,14 +5,22 @@ const BASE = process.env.SMOKE_BASE_URL ?? "http://localhost:3000";
 
 const checks = [
   { path: "/", expect: ["商子轩", "正在求职", "精选项目", "lang=\"zh-CN\""] },
-  { path: "/projects", expect: ["项目", "天机阁", "AOG 智能问答系统", "智能班级管理系统"] },
+  {
+    path: "/projects",
+    expect: ["共 7 个完整项目", "崇文兰庭便民缴费通", "天机阁", "知云同职", "智能班级管理系统"],
+  },
+  { path: "/projects/chongwen-pay", expect: ["个人职责", "成果亮点", "1200 户"] },
   { path: "/projects/tianjige", expect: ["个人职责", "成果亮点", "内容核验流水线"] },
+  { path: "/projects/zhiyun", expect: ["知云同职", "虚假岗过滤", "应用截图"] },
   { path: "/projects/aog-qa", expect: ["AOG 智能问答系统", "BM25 + Reranker"] },
   { path: "/projects/smart-class", expect: ["智能班级管理系统", "WebSocket"] },
-  { path: "/about", expect: ["关于我", "实习经历", "教育经历", "国学 · 易学研究"] },
-  { path: "/contact", expect: ["联系我", "1251717963@qq.com", "gitee.com/shang-zixuan"] },
+  { path: "/projects/class-local", expect: ["本地存储版", "真实教务数据", "应用截图"] },
+  { path: "/projects/lumiere-mall", expect: ["琉光美妆", "云函数鉴权"] },
+  { path: "/about", expect: ["关于我", "实习经历", "教育经历", "国学 · 易学研究", "下载简历 PDF"] },
+  { path: "/contact", expect: ["联系我", "1251717963@qq.com", "github.com/Shang1254"] },
   { path: "/projects/not-exist", status: 404, expect: ["404"] },
   { path: "/icon.svg", raw: true },
+  { path: "/resume/resume.pdf", raw: true },
   { path: "/sitemap.xml", raw: true, expect: [] },
   { path: "/robots.txt", raw: true, expect: [] },
 ];

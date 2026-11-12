@@ -108,6 +108,27 @@ export default async function ProjectDetailPage({ params }: PageProps) {
         </section>
       )}
 
+      {project.screenshots && project.screenshots.length > 0 && (
+        <section aria-labelledby="project-gallery" className="mt-10">
+          <h2 id="project-gallery" className="text-lg font-bold">
+            应用截图
+          </h2>
+          <div className="mt-4 grid gap-4 sm:grid-cols-2">
+            {project.screenshots.map((src, i) => (
+              <img
+                key={src}
+                src={src}
+                alt={`${project.title} 应用截图 ${i + 1}`}
+                width={1280}
+                height={720}
+                loading="lazy"
+                className="h-auto w-full rounded-lg border border-border bg-muted object-cover"
+              />
+            ))}
+          </div>
+        </section>
+      )}
+
       <section aria-labelledby="project-stack" className="mt-10">
         <h2 id="project-stack" className="text-lg font-bold">
           技术栈
