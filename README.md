@@ -41,11 +41,27 @@ npm run build && npm run start   # 终端 1
 npm run smoke                    # 终端 2，或 SMOKE_BASE_URL=<地址> npm run smoke
 ```
 
-## 部署（Vercel）
+## 部署（双端）
 
-1. 把仓库推送到 GitHub / Gitee；
-2. 在 Vercel 中导入该仓库，框架预设会自动识别 Next.js，直接部署；
-3. 若绑定自定义域名，设置环境变量 `NEXT_PUBLIC_SITE_URL` 为最终域名（用于 metadataBase、sitemap 与 Open Graph 链接）。
+### Vercel（主站）
+
+```bash
+vercel link --project portfolio && vercel --prod
+```
+
+生产环境变量 `NEXT_PUBLIC_SITE_URL=https://portfolio-pink-kappa-77.vercel.app`（已在 Vercel 控制台设置）。
+注意：大陆裸网络访问 `*.vercel.app` 不稳定，建议绑定自定义域名或使用下方 Pages 备份。
+
+### GitHub Pages 备份（大陆可达性较好）
+
+```bash
+npm run deploy:pages
+```
+
+- Pages 仓库：`https://github.com/Shang1254/shang1254.github.io`（本地默认位于 `~/shang1254.github.io`，可用 `PAGES_REPO_DIR` 覆盖）
+- 静态导出构建条件开启（`STATIC_EXPORT=1`），不影响 Vercel 构建
+- 已内置 `.nojekyll`（防止 Jekyll 忽略 `_next/`）；Windows 下用 robocopy 同步
+- 推送若超时：`git config --global http.https://github.com.proxy http://127.0.0.1:7897`（按本机代理端口调整）
 
 ## 技术说明
 
