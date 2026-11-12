@@ -1,25 +1,26 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { getProjectById, projects } from "@/data/projects";
-import { profile } from "@/data/profile";
+import { getProjectById, getProjects } from "@/data/projects";
+import { profiles } from "@/data/profile";
+import { ui } from "@/data/i18n";
 
 type PageProps = { params: Promise<{ id: string }> };
 
 // 静态预渲染全部项目详情页
 export function generateStaticParams() {
-  return projects.map((project) => ({ id: project.id }));
+  return getProjects("zh").map((project) => ({ id: project.id }));
 }
 
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
   const { id } = await params;
-  const project = getProjectById(id);
+  const project = getProjectById("zh", id);
   if (!project) return { title: "项目不存在" };
   return {
     title: project.title,
     description: project.summary,
     openGraph: {
-      title: `${project.title} | ${profile.name}`,
+      title: `${project.title} | ${profiles.zh.name}`,
       description: project.summary,
     },
   };
@@ -27,30 +28,32 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
 
 export default async function ProjectDetailPage({ params }: PageProps) {
   const { id } = await params;
-  const project = getProjectById(id);
+  const project = getProjectById("zh", id);
   if (!project) notFound();
 
+  const copy = ui.zh.projects;
+  const profile = profiles.zh;
   // 列表按时间从新到旧排列：index-1 为更新的项目，index+1 为更早的
-  const index = projects.findIndex((p) => p.id === project.id);
-  const newer = index > 0 ? projects[index - 1] : undefined;
-  const older = index < projects.length - 1 ? projects[index + 1] : undefined;
+  const list = getProjects("zh");
+  const index = list.findIndex((p) => p.id === project.id);
+  const newer = index > 0 ? list[index - 1] : undefined;
+  const older = index < list.length - 1 ? list[index + 1] : undefined;
 
   return (
     <article className="mx-auto w-full max-w-3xl px-4 py-14 sm:px-6">
-      <nav aria-label="面包屑" className="mb-6">
+      <nav aria-label={copy.breadcrumb} className="mb-6">
         <Link
           href="/projects"
           className="text-sm text-muted-foreground transition hover:text-foreground"
         >
-          ← 返回全部项目
+          {copy.breadcrumb}
         </Link>
       </nav>
 
       <div className="overflow-hidden rounded-xl border border-border">
-        {/* 封面为本地 SVG 占位图，无需 Next 图片优化管线 */}
         <img
           src={project.image}
-          alt={`${project.title} 封面图`}
+          alt={copy.coverAlt(project.title)}
           width={1200}
           height={750}
           className="h-auto w-full object-cover"
@@ -71,7 +74,7 @@ export default async function ProjectDetailPage({ params }: PageProps) {
         className="mt-8 rounded-xl border border-primary/30 bg-primary/5 p-5 sm:p-6"
       >
         <h2 id="project-highlights" className="font-semibold">
-          成果亮点
+          {copy.highlights}
         </h2>
         <ul className="mt-3 space-y-2 text-sm">
           {project.highlights.map((point) => (
@@ -89,7 +92,7 @@ export default async function ProjectDetailPage({ params }: PageProps) {
       {project.responsibilities && (
         <section aria-labelledby="project-responsibilities" className="mt-10">
           <h2 id="project-responsibilities" className="text-lg font-bold">
-            个人职责
+            {copy.responsibilities}
           </h2>
           <ul className="mt-4 space-y-3">
             {project.responsibilities.map((item) => (
@@ -111,14 +114,14 @@ export default async function ProjectDetailPage({ params }: PageProps) {
       {project.screenshots && project.screenshots.length > 0 && (
         <section aria-labelledby="project-gallery" className="mt-10">
           <h2 id="project-gallery" className="text-lg font-bold">
-            应用截图
+            {copy.gallery}
           </h2>
           <div className="mt-4 grid gap-4 sm:grid-cols-2">
             {project.screenshots.map((src, i) => (
               <img
                 key={src}
                 src={src}
-                alt={`${project.title} 应用截图 ${i + 1}`}
+                alt={copy.shotAlt(project.title, i)}
                 width={1280}
                 height={720}
                 loading="lazy"
@@ -131,7 +134,7 @@ export default async function ProjectDetailPage({ params }: PageProps) {
 
       <section aria-labelledby="project-stack" className="mt-10">
         <h2 id="project-stack" className="text-lg font-bold">
-          技术栈
+          {copy.stack}
         </h2>
         <ul className="mt-3 flex flex-wrap gap-1.5">
           {project.tags.map((tag) => (
@@ -154,7 +157,7 @@ export default async function ProjectDetailPage({ params }: PageProps) {
               rel="noreferrer"
               className="rounded-lg bg-primary px-5 py-2.5 text-sm font-medium text-primary-foreground transition hover:opacity-90"
             >
-              {project.demoLabel ?? "在线演示"}
+              {project.demoLabel ?? copy.demoLabel}
             </a>
           )}
           {project.repoUrl && (
@@ -164,14 +167,14 @@ export default async function ProjectDetailPage({ params }: PageProps) {
               rel="noreferrer"
               className="rounded-lg border border-border bg-card px-5 py-2.5 text-sm font-medium transition hover:bg-muted"
             >
-              源码 · {project.repoLabel ?? "仓库"}
+              {copy.sourceLabel} · {project.repoLabel ?? "Git"}
             </a>
           )}
         </div>
       )}
 
       <nav
-        aria-label="项目间导航"
+        aria-label={copy.navBetween}
         className="mt-12 flex items-center justify-between gap-4 border-t border-border pt-6 text-sm"
       >
         {older ? (
@@ -193,6 +196,8 @@ export default async function ProjectDetailPage({ params }: PageProps) {
           </Link>
         )}
       </nav>
+
+      <p className="sr-only">{profile.name}</p>
     </article>
   );
 }

@@ -1,4 +1,6 @@
-import { profile } from "@/data/profile";
+import type { Locale } from "@/data/i18n";
+import { ui } from "@/data/i18n";
+import { profiles } from "@/data/profile";
 import CopyEmailButton from "./CopyEmailButton";
 
 // 社交链接图标全部内联 SVG，避免引入图标库依赖
@@ -46,10 +48,12 @@ function GiteeIcon() {
   );
 }
 
-function buildItems() {
+function buildItems(locale: Locale) {
+  const profile = profiles[locale];
+  const copy = ui[locale].social;
   const items = [
     {
-      label: "邮箱",
+      label: copy.email,
       href: `mailto:${profile.email}`,
       value: profile.email,
       icon: <MailIcon />,
@@ -76,11 +80,13 @@ function buildItems() {
  * - cards：带说明的卡片（Contact 页），邮箱卡片附带一键复制按钮
  */
 export default function SocialLinks({
+  locale = "zh",
   variant = "icons",
 }: {
+  locale?: Locale;
   variant?: "icons" | "cards";
 }) {
-  const items = buildItems();
+  const items = buildItems(locale);
 
   if (variant === "cards") {
     return (
@@ -111,7 +117,7 @@ export default function SocialLinks({
                   <a href={item.href} className="flex min-w-0 flex-1 items-center gap-3">
                     {inner}
                   </a>
-                  <CopyEmailButton email={item.value} />
+                  <CopyEmailButton email={item.value} locale={locale} />
                 </div>
               ) : (
                 <a

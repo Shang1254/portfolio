@@ -23,6 +23,17 @@ const checks = [
   { path: "/resume/resume.pdf", raw: true },
   { path: "/sitemap.xml", raw: true, expect: [] },
   { path: "/robots.txt", raw: true, expect: [] },
+  // 英文版
+  { path: "/en", expect: ["Shang Zixuan", "Class of 2027", "Featured Projects", "Switch to"] },
+  {
+    path: "/en/projects",
+    expect: ["Chongwen Community Payment", "Tianjige", "Zhiyun Tongzhi"],
+  },
+  { path: "/en/projects/tianjige", expect: ["Highlights", "My Responsibilities"] },
+  { path: "/en/projects/zhiyun", expect: ["Zhiyun Tongzhi", "Screenshots"] },
+  { path: "/en/projects/not-exist", status: 404, expect: ["404"] },
+  { path: "/en/about", expect: ["About Me", "Internship Experience", "Download Résumé (PDF)"] },
+  { path: "/en/contact", expect: ["Get in Touch", "github.com/Shang1254"] },
 ];
 
 let failed = 0;

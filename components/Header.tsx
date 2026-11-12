@@ -2,18 +2,22 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { profile } from "@/data/profile";
+import { profiles } from "@/data/profile";
+import { localeFromPath, swapLocalePath, ui } from "@/data/i18n";
 import ThemeToggle from "./ThemeToggle";
 
 const NAV_ITEMS = [
-  { href: "/", label: "首页" },
-  { href: "/projects", label: "项目" },
-  { href: "/about", label: "关于" },
-  { href: "/contact", label: "联系" },
-];
+  { href: "/", key: "home" },
+  { href: "/projects", key: "projects" },
+  { href: "/about", key: "about" },
+  { href: "/contact", key: "contact" },
+] as const;
 
 export default function Header() {
   const pathname = usePathname();
+  const locale = localeFromPath(pathname);
+  const copy = ui[locale];
+  const profile = profiles[locale];
 
   return (
     <header className="sticky top-0 z-40 border-b border-border bg-background/85 backdrop-blur">
@@ -30,17 +34,24 @@ export default function Header() {
           </span>
           {profile.name}
         </Link>
-        <nav aria-label="主导航">
+        <nav aria-label={locale === "zh" ? "主导航" : "Main navigation"}>
           <ul className="flex items-center gap-0.5 text-sm sm:gap-1">
             {NAV_ITEMS.map((item) => {
+              const href =
+                locale === "en" && item.href === "/" ? "/en" : `/en${item.href === "/" ? "" : item.href}`;
+              const targetHref = locale === "zh" ? item.href : href;
               const active =
                 item.href === "/"
-                  ? pathname === "/"
-                  : pathname.startsWith(item.href);
+                  ? locale === "zh"
+                    ? pathname === "/"
+                    : pathname === "/en"
+                  : pathname.startsWith(
+                      locale === "zh" ? item.href : `/en${item.href}`,
+                    );
               return (
                 <li key={item.href}>
                   <Link
-                    href={item.href}
+                    href={targetHref}
                     aria-current={active ? "page" : undefined}
                     className={`rounded-lg px-2 py-1.5 transition sm:px-3 ${
                       active
@@ -48,13 +59,22 @@ export default function Header() {
                         : "text-muted-foreground hover:text-foreground"
                     }`}
                   >
-                    {item.label}
+                    {copy.nav[item.key]}
                   </Link>
                 </li>
               );
             })}
+            <li>
+              <Link
+                href={swapLocalePath(pathname)}
+                className="rounded-lg px-2 py-1.5 text-xs font-medium text-muted-foreground transition hover:bg-muted hover:text-foreground sm:px-2.5"
+                aria-label={locale === "zh" ? "Switch to English" : "切换到中文"}
+              >
+                {copy.langSwitch}
+              </Link>
+            </li>
             <li className="ml-0.5">
-              <ThemeToggle />
+              <ThemeToggle locale={locale} />
             </li>
           </ul>
         </nav>

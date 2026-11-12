@@ -1,11 +1,20 @@
 import Link from "next/link";
-import { profile } from "@/data/profile";
+import { profiles } from "@/data/profile";
 import { featuredProjects } from "@/data/projects";
+import { ui } from "@/data/i18n";
 import ProjectCard from "@/components/ProjectCard";
 import SectionHeading from "@/components/SectionHeading";
 
-export default function HomePage() {
-  const featured = featuredProjects(3);
+export const metadata = {
+  alternates: {
+    languages: { "zh-CN": "/", en: "/en" },
+  },
+};
+
+export default function EnHomePage() {
+  const profile = profiles.en;
+  const copy = ui.en;
+  const featured = featuredProjects("en", 3);
 
   return (
     <>
@@ -21,14 +30,14 @@ export default function HomePage() {
           </p>
 
           <h1 className="mt-5 text-3xl font-bold tracking-tight sm:text-5xl">
-            你好，我是
+            {copy.home.greeting}{" "}
             <span className="text-primary">{profile.name}</span>
           </h1>
           <p className="mt-4 max-w-2xl text-base leading-relaxed text-muted-foreground sm:text-lg">
-            {profile.headline}。{profile.tagline}
+            {profile.headline}. {profile.tagline}
           </p>
 
-          <ul className="mt-5 flex flex-wrap gap-2" aria-label="求职意向">
+          <ul className="mt-5 flex flex-wrap gap-2" aria-label={copy.home.intentsLabel}>
             {profile.jobIntents.map((intent) => (
               <li
                 key={intent}
@@ -41,35 +50,31 @@ export default function HomePage() {
 
           <div className="mt-8 flex flex-wrap gap-3">
             <Link
-              href="/projects"
+              href="/en/projects"
               className="rounded-lg bg-primary px-5 py-2.5 text-sm font-medium text-primary-foreground transition hover:opacity-90"
             >
-              查看项目
+              {copy.home.viewProjects}
             </Link>
             <Link
-              href="/contact"
+              href="/en/contact"
               className="rounded-lg border border-border bg-card px-5 py-2.5 text-sm font-medium transition hover:bg-muted"
             >
-              联系我
+              {copy.home.contactMe}
             </Link>
           </div>
 
           <dl className="mt-12 flex flex-wrap gap-x-10 gap-y-4">
             {profile.stats.map((stat) => (
               <div key={stat.label} className="flex flex-col-reverse">
-                <dt className="mt-1 text-xs text-muted-foreground">
-                  {stat.label}
-                </dt>
-                <dd className="text-2xl font-bold tracking-tight">
-                  {stat.value}
-                </dd>
+                <dt className="mt-1 text-xs text-muted-foreground">{stat.label}</dt>
+                <dd className="text-2xl font-bold tracking-tight">{stat.value}</dd>
               </div>
             ))}
           </dl>
         </div>
       </section>
 
-      {/* 精选项目 */}
+      {/* Featured projects */}
       <section
         aria-labelledby="featured-projects"
         className="mx-auto w-full max-w-5xl px-4 py-16 sm:px-6"
@@ -77,24 +82,24 @@ export default function HomePage() {
         <div className="flex items-end justify-between gap-4">
           <SectionHeading
             id="featured-projects"
-            title="精选项目"
-            description="三个完整走完设计、开发、测试与部署的作品"
+            title={copy.home.featured.title}
+            description={copy.home.featured.description}
           />
           <Link
-            href="/projects"
+            href="/en/projects"
             className="mb-8 shrink-0 text-sm text-primary hover:underline"
           >
-            查看全部 →
+            {copy.home.featured.viewAll}
           </Link>
         </div>
         <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
           {featured.map((project) => (
-            <ProjectCard key={project.id} project={project} />
+            <ProjectCard key={project.id} project={project} locale="en" />
           ))}
         </div>
       </section>
 
-      {/* 技能概览 */}
+      {/* Skills overview */}
       <section
         aria-labelledby="skills-overview"
         className="border-t border-border bg-muted/40"
@@ -102,8 +107,8 @@ export default function HomePage() {
         <div className="mx-auto w-full max-w-5xl px-4 py-16 sm:px-6">
           <SectionHeading
             id="skills-overview"
-            title="技能概览"
-            description="日常开发中最顺手的一部分技术，完整技能分组见「关于」页"
+            title={copy.home.skills.title}
+            description={copy.home.skills.description}
           />
           <ul className="flex flex-wrap gap-2">
             {profile.homeSkills.map((skill) => (
@@ -121,15 +126,15 @@ export default function HomePage() {
       {/* CTA */}
       <section className="mx-auto w-full max-w-5xl px-4 py-16 sm:px-6">
         <div className="rounded-2xl border border-border bg-card px-6 py-10 text-center">
-          <h2 className="text-xl font-bold sm:text-2xl">对我的项目感兴趣？</h2>
+          <h2 className="text-xl font-bold sm:text-2xl">{copy.home.cta.title}</h2>
           <p className="mx-auto mt-2 max-w-md text-sm leading-relaxed text-muted-foreground">
-            无论是实习 / 校招机会，还是想聊聊某个项目的实现细节，都欢迎联系我。
+            {copy.home.cta.description}
           </p>
           <Link
-            href="/contact"
+            href="/en/contact"
             className="mt-6 inline-block rounded-lg bg-primary px-6 py-2.5 text-sm font-medium text-primary-foreground transition hover:opacity-90"
           >
-            联系我
+            {copy.home.cta.button}
           </Link>
         </div>
       </section>

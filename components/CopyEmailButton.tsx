@@ -1,11 +1,20 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import type { Locale } from "@/data/i18n";
+import { ui } from "@/data/i18n";
 
-export default function CopyEmailButton({ email }: { email: string }) {
+export default function CopyEmailButton({
+  email,
+  locale = "zh",
+}: {
+  email: string;
+  locale?: Locale;
+}) {
   const [copied, setCopied] = useState(false);
+  const copy = ui[locale].social;
 
-  async function copy() {
+  async function copyEmail() {
     try {
       await navigator.clipboard.writeText(email);
       setCopied(true);
@@ -23,11 +32,11 @@ export default function CopyEmailButton({ email }: { email: string }) {
   return (
     <button
       type="button"
-      onClick={copy}
-      aria-label={copied ? "邮箱已复制" : `复制邮箱 ${email}`}
+      onClick={copyEmail}
+      aria-label={copied ? copy.copied : copy.copyEmail(email)}
       className="shrink-0 rounded-md border border-border px-2 py-1 text-xs text-muted-foreground transition hover:bg-muted hover:text-foreground"
     >
-      {copied ? "已复制 ✓" : "复制"}
+      {copied ? copy.copied : copy.copy}
     </button>
   );
 }

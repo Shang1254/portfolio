@@ -1,5 +1,30 @@
-// 个人信息与站点文案的唯一数据源：修改本文件即可更新全站对应内容
-export const profile = {
+// 个人信息与站点文案的唯一数据源（中英双语）：修改本文件即可更新全站对应内容
+import type { Locale } from "./i18n";
+
+type Profile = {
+  name: string;
+  headline: string;
+  tagline: string;
+  status: string;
+  location: string;
+  email: string;
+  github: string;
+  gitee: string;
+  /** 简历 PDF（About / Contact 页提供下载） */
+  resumePdf: string;
+  jobIntents: string[];
+  stats: { value: string; label: string }[];
+  /** 首页技能概览（About 页有更完整的分组） */
+  homeSkills: string[];
+  intro: string[];
+  skills: { group: string; items: string[] }[];
+  experiences: { period: string; company: string; role: string; points: string[] }[];
+  education: { period: string; school: string; major: string; note: string }[];
+  certificates: string[];
+  research: { title: string; description: string };
+};
+
+const zh: Profile = {
   name: "商子轩",
   headline: "全栈开发工程师",
   tagline:
@@ -9,7 +34,6 @@ export const profile = {
   email: "1251717963@qq.com",
   github: "https://github.com/Shang1254",
   gitee: "https://gitee.com/shang-zixuan",
-  /** 简历 PDF（Contact / About 页提供下载） */
   resumePdf: "/resume/resume.pdf",
   jobIntents: ["Java 后端开发", "前端开发", "后端开发"],
   stats: [
@@ -17,7 +41,6 @@ export const profile = {
     { value: "2 段", label: "开发 / 测试实习" },
     { value: "80+", label: "校核古籍底本" },
   ],
-  // 首页技能概览（About 页有更完整的分组）
   homeSkills: [
     "Java",
     "Spring Boot",
@@ -102,4 +125,109 @@ export const profile = {
     description:
       "系统研习国学经典与易学应用两年，坚持「以典籍为凭、以底本为证」，逐字校核《三命通会》《渊海子平》《协纪辨方书》等古籍底本 80 余种；研究成果已工程化为线上项目「天机阁」（见项目页）。",
   },
-} as const;
+};
+
+const en: Profile = {
+  name: "Shang Zixuan",
+  headline: "Full-Stack Developer",
+  tagline:
+    "Java backend (Spring Boot / MySQL) plus React / Next.js frontend and hands-on deployment — focused on engineering quality and data reliability.",
+  status: "Class of 2027 · Open to opportunities",
+  location: "Wuhan, China",
+  email: "1251717963@qq.com",
+  github: "https://github.com/Shang1254",
+  gitee: "https://gitee.com/shang-zixuan",
+  resumePdf: "/resume/resume.pdf",
+  jobIntents: ["Java Backend", "Frontend Development", "Backend Development"],
+  stats: [
+    { value: "3", label: "Shipped Projects" },
+    { value: "2", label: "Dev / QA Internships" },
+    { value: "80+", label: "Classics Cross-Checked" },
+  ],
+  homeSkills: [
+    "Java",
+    "Spring Boot",
+    "MyBatis",
+    "MySQL",
+    "Redis",
+    "Next.js / React",
+    "Vue 3",
+    "FastAPI",
+    "RAG / Vector Search",
+    "Linux / Nginx",
+    "Alibaba Cloud ECS",
+  ],
+  intro: [
+    "I'm Shang Zixuan, a Class-of-2027 Computer Science undergraduate at Wuhan Qingchuan College. From my associate degree through my bachelor's, I've kept a systematic study habit that built a solid CS foundation.",
+    "I've done two internships at Yituke — software testing first, then Java development — so I know the full loop from requirements and testing to release and operations. On the side, I shipped three full-stack projects end to end; Tianjige runs steadily on an Alibaba Cloud ECS today.",
+    "What sets me apart is digital humanities: two years of systematic I-Ching studies, 80+ classical texts cross-checked word by word, and a traceable online platform engineered from that research — my work carries content depth beyond code.",
+  ],
+  skills: [
+    {
+      group: "Backend",
+      items: ["Java", "Spring Boot", "MyBatis", "Concurrency & Multithreading", "MySQL Design & Tuning"],
+    },
+    {
+      group: "Frontend",
+      items: ["JavaScript", "React / Next.js", "Vue 3", "HTML / CSS", "PWA"],
+    },
+    {
+      group: "Engineering & DevOps",
+      items: ["Linux", "Nginx", "systemd", "Alibaba Cloud ECS", "Automated Testing & Backup"],
+    },
+    {
+      group: "AI Applications",
+      items: ["RAG / Vector Search", "ChromaDB", "DeepSeek / Zhipu APIs", "Coze Platform Customization"],
+    },
+  ],
+  experiences: [
+    {
+      period: "Mar – May 2025",
+      company: "Beijing Yituke Information Technology",
+      role: "Java Development Intern",
+      points: [
+        "Helped operate a ride-service system: streamlined code logic and hardened exception handling, cutting the monthly failure rate by 18%",
+        "Tackled multi-threaded path-computation latency with dynamic thread-pool tuning and task splitting, reducing average compute time from 420ms to 160ms",
+        "Designed automated MySQL backups with daily increments and self-checks, shrinking the recovery RTO from 4 hours to 30 minutes",
+      ],
+    },
+    {
+      period: "Jun – Nov 2023",
+      company: "Beijing Yituke Information Technology",
+      role: "Software Testing Intern",
+      points: [
+        "Designed functional / API test cases: 12 test documents covering 300+ scenarios with 92% case coverage",
+        "Set up the Linux test environment solo; completed 4 release cycles, filing 68 valid bugs with a 97% fix rate",
+        "Analyzed missed defects and refined case design, lowering the post-release defect rate by 15%",
+      ],
+    },
+  ],
+  education: [
+    {
+      period: "2025.9 – 2027.6",
+      school: "Wuhan Qingchuan College",
+      major: "Computer Science and Technology · B.Eng.",
+      note: "Key courses: Network Engineering & Security, Web Front-End Framework Lab, Data Structures & Algorithms, Compilers, Cloud Computing (multiple courses GPA 3.5+)",
+    },
+    {
+      period: "2022.9 – 2025.6",
+      school: "Wuhan East Lake College",
+      major: "Computer Application Technology · Associate Degree",
+      note: "Key courses: Java Programming, Object-Oriented Programming, C++, Operating Systems, Algorithm Design & Analysis (multiple courses GPA 4.0/4.0)",
+    },
+  ],
+  certificates: [
+    "Advanced Java Software Engineer Certificate",
+    "Advanced Office Certificate",
+    "National College Organizational Management Competition — Preliminary First Prize",
+    "Zhixin Psychology Knowledge Competition — First Prize",
+    "Outstanding League Branch Secretary (school level)",
+  ],
+  research: {
+    title: "Chinese Classics & I-Ching Research (Distinctive Background)",
+    description:
+      "Two years of systematic study of Chinese classics and applied I-Ching, cross-checking 80+ original classical texts (Sanming Tonghui, Yuanhai Ziping, Xieji Bianfang Shu and more) word by word. That research became the live project Tianjige (see Projects) — beyond engineering, it gives my work real content depth.",
+  },
+};
+
+export const profiles: Record<Locale, Profile> = { zh, en };

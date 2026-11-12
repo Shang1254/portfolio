@@ -1,9 +1,12 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import type { Locale } from "@/data/i18n";
+import { ui } from "@/data/i18n";
 
-export default function ScrollTop() {
+export default function ScrollTop({ locale = "zh" }: { locale?: Locale }) {
   const [visible, setVisible] = useState(false);
+  const label = ui[locale].backToTop;
 
   useEffect(() => {
     const onScroll = () => setVisible(window.scrollY > 480);
@@ -18,7 +21,8 @@ export default function ScrollTop() {
     <button
       type="button"
       onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
-      aria-label="回到顶部"
+      aria-label={label}
+      title={label}
       className="fixed bottom-5 right-5 z-40 grid h-10 w-10 place-items-center rounded-full border border-border bg-card text-foreground shadow-md transition hover:bg-muted"
     >
       <svg

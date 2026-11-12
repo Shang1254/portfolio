@@ -1,10 +1,13 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import type { Locale } from "@/data/i18n";
+import { ui } from "@/data/i18n";
 
-export default function ThemeToggle() {
+export default function ThemeToggle({ locale = "zh" }: { locale?: Locale }) {
   const [mounted, setMounted] = useState(false);
   const [isDark, setIsDark] = useState(false);
+  const copy = ui[locale].theme;
 
   useEffect(() => {
     setMounted(true);
@@ -26,7 +29,7 @@ export default function ThemeToggle() {
     <button
       type="button"
       onClick={toggle}
-      aria-label={isDark ? "切换到浅色模式" : "切换到深色模式"}
+      aria-label={isDark ? copy.toLight : copy.toDark}
       className="grid h-8 w-8 place-items-center rounded-lg text-muted-foreground transition hover:bg-muted hover:text-foreground"
     >
       {/* 挂载前与服务端渲染保持一致，避免 hydration 不匹配 */}

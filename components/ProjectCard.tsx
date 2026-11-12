@@ -1,19 +1,28 @@
 import Link from "next/link";
+import type { Locale } from "@/data/i18n";
+import { ui } from "@/data/i18n";
 import type { Project } from "@/data/projects";
 
-// 封面为本地 SVG 占位图，无需 Next 图片优化管线，使用原生 img
-export default function ProjectCard({ project }: { project: Project }) {
+// 封面为本地 SVG/截图资源，无需 Next 图片优化管线，使用原生 img
+export default function ProjectCard({
+  project,
+  locale = "zh",
+}: {
+  project: Project;
+  locale?: Locale;
+}) {
+  const copy = ui[locale].projects;
   return (
     <article className="group flex h-full flex-col overflow-hidden rounded-xl border border-border bg-card shadow-sm transition hover:shadow-md">
       <div className="aspect-video overflow-hidden border-b border-border bg-muted">
         <Link
-          href={`/projects/${project.id}`}
-          aria-label={`查看项目详情：${project.title}`}
+          href={`${locale === "en" ? "/en" : ""}/projects/${project.id}`}
+          aria-label={`${copy.detail} ${project.title}`}
           className="block h-full w-full"
         >
           <img
             src={project.image}
-            alt={`${project.title} 封面图`}
+            alt={copy.coverAlt(project.title)}
             width={1200}
             height={750}
             loading="lazy"
@@ -26,7 +35,7 @@ export default function ProjectCard({ project }: { project: Project }) {
         <div className="flex items-baseline justify-between gap-3">
           <h3 className="font-semibold">
             <Link
-              href={`/projects/${project.id}`}
+              href={`${locale === "en" ? "/en" : ""}/projects/${project.id}`}
               className="transition hover:text-primary"
             >
               {project.title}
@@ -53,7 +62,7 @@ export default function ProjectCard({ project }: { project: Project }) {
           ))}
         </ul>
 
-        <ul className="flex flex-wrap gap-1.5" aria-label="技术栈">
+        <ul className="flex flex-wrap gap-1.5" aria-label={copy.stack}>
           {project.tags.map((tag) => (
             <li
               key={tag}
@@ -72,7 +81,7 @@ export default function ProjectCard({ project }: { project: Project }) {
               rel="noreferrer"
               className="inline-flex items-center rounded-lg bg-primary px-3 py-1.5 text-sm font-medium text-primary-foreground transition hover:opacity-90"
             >
-              {project.demoLabel ?? "在线演示"}
+              {project.demoLabel ?? copy.demoLabel}
             </a>
           )}
           {project.repoUrl && (
@@ -82,14 +91,14 @@ export default function ProjectCard({ project }: { project: Project }) {
               rel="noreferrer"
               className="inline-flex items-center rounded-lg border border-border px-3 py-1.5 text-sm transition hover:bg-muted"
             >
-              源码 · {project.repoLabel ?? "仓库"}
+              {copy.sourceLabel} · {project.repoLabel ?? "Git"}
             </a>
           )}
           <Link
-            href={`/projects/${project.id}`}
+            href={`${locale === "en" ? "/en" : ""}/projects/${project.id}`}
             className="ml-auto inline-flex items-center text-sm text-primary hover:underline"
           >
-            详情 →
+            {copy.detail}
           </Link>
         </div>
       </div>

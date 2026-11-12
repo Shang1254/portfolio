@@ -1,19 +1,26 @@
 import type { Metadata } from "next";
-import { profile } from "@/data/profile";
+import { profiles } from "@/data/profile";
+import { ui } from "@/data/i18n";
 import SectionHeading from "@/components/SectionHeading";
 
 export const metadata: Metadata = {
-  title: "关于我",
+  title: ui.zh.nav.about,
   description:
     "商子轩：2027 届计算机本科应届生，全栈开发方向。教育经历、实习经历、技能分组与特色研究背景。",
+  alternates: {
+    languages: { "zh-CN": "/about", en: "/en/about" },
+  },
 };
 
 export default function AboutPage() {
+  const profile = profiles.zh;
+  const copy = ui.zh.about;
+
   return (
     <div className="mx-auto w-full max-w-5xl px-4 py-14 sm:px-6">
       {/* 简介 */}
       <section aria-labelledby="about-intro">
-        <SectionHeading id="about-intro" title="关于我" />
+        <SectionHeading id="about-intro" title={copy.title} />
         <div className="flex flex-col gap-6 sm:flex-row sm:gap-8">
           <img
             src="/images/avatar.svg"
@@ -47,7 +54,7 @@ export default function AboutPage() {
                   <path d="m7 10 5 5 5-5" />
                   <path d="M12 15V3" />
                 </svg>
-                下载简历 PDF
+                {copy.downloadResume}
               </a>
             </div>
           </div>
@@ -59,7 +66,7 @@ export default function AboutPage() {
         aria-labelledby="about-skills"
         className="mt-16 border-t border-border pt-10"
       >
-        <SectionHeading id="about-skills" title="技能" />
+        <SectionHeading id="about-skills" title={copy.skills} />
         <div className="grid gap-4 sm:grid-cols-2">
           {profile.skills.map((group) => (
             <div
@@ -87,7 +94,7 @@ export default function AboutPage() {
         aria-labelledby="about-experience"
         className="mt-16 border-t border-border pt-10"
       >
-        <SectionHeading id="about-experience" title="实习经历" />
+        <SectionHeading id="about-experience" title={copy.experience} />
         <ol className="relative space-y-10 border-l border-border pl-6">
           {profile.experiences.map((experience) => (
             <li key={experience.role} className="relative">
@@ -95,13 +102,9 @@ export default function AboutPage() {
                 aria-hidden
                 className="absolute -left-[31px] top-1.5 h-3 w-3 rounded-full border-2 border-primary bg-background"
               />
-              <p className="text-xs text-muted-foreground">
-                {experience.period}
-              </p>
+              <p className="text-xs text-muted-foreground">{experience.period}</p>
               <h3 className="mt-1 text-lg font-semibold">{experience.role}</h3>
-              <p className="text-sm text-muted-foreground">
-                {experience.company}
-              </p>
+              <p className="text-sm text-muted-foreground">{experience.company}</p>
               <ul className="mt-3 space-y-2 text-sm leading-relaxed text-muted-foreground">
                 {experience.points.map((point) => (
                   <li key={point} className="flex gap-2">
@@ -123,20 +126,16 @@ export default function AboutPage() {
         aria-labelledby="about-education"
         className="mt-16 border-t border-border pt-10"
       >
-        <SectionHeading id="about-education" title="教育经历" />
+        <SectionHeading id="about-education" title={copy.education} />
         <div className="grid gap-4 sm:grid-cols-2">
           {profile.education.map((education) => (
             <div
               key={education.school}
               className="rounded-xl border border-border bg-card p-5"
             >
-              <p className="text-xs text-muted-foreground">
-                {education.period}
-              </p>
+              <p className="text-xs text-muted-foreground">{education.period}</p>
               <h3 className="mt-1 font-semibold">{education.school}</h3>
-              <p className="mt-0.5 text-sm text-primary">
-                {education.major}
-              </p>
+              <p className="mt-0.5 text-sm text-primary">{education.major}</p>
               <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
                 {education.note}
               </p>
@@ -150,7 +149,7 @@ export default function AboutPage() {
         aria-labelledby="about-certificates"
         className="mt-16 border-t border-border pt-10"
       >
-        <SectionHeading id="about-certificates" title="荣誉证书" />
+        <SectionHeading id="about-certificates" title={copy.certificates} />
         <ul className="flex flex-wrap gap-2">
           {profile.certificates.map((certificate) => (
             <li

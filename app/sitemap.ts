@@ -6,21 +6,58 @@ import { projects } from "@/data/projects";
 export const dynamic = "force-static";
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const staticPages: MetadataRoute.Sitemap = ["", "/projects", "/about", "/contact"].map(
+  const now = new Date();
+
+  const zhPages: MetadataRoute.Sitemap = ["", "/projects", "/about", "/contact"].map(
     (path) => ({
       url: `${SITE_URL}${path}`,
-      lastModified: new Date(),
+      lastModified: now,
       changeFrequency: "monthly",
       priority: path === "" ? 1 : 0.8,
+      alternates: {
+        languages: {
+          "zh-CN": `${SITE_URL}${path || "/"}`,
+          en: `${SITE_URL}/en${path || ""}`,
+        },
+      },
     }),
   );
 
-  const projectPages: MetadataRoute.Sitemap = projects.map((project) => ({
-    url: `${SITE_URL}/projects/${project.id}`,
-    lastModified: new Date(),
-    changeFrequency: "monthly",
-    priority: 0.7,
-  }));
+  const enPages: MetadataRoute.Sitemap = ["/en", "/en/projects", "/en/about", "/en/contact"].map(
+    (path) => ({
+      url: `${SITE_URL}${path}`,
+      lastModified: now,
+      changeFrequency: "monthly",
+      priority: path === "/en" ? 0.9 : 0.7,
+      alternates: {
+        languages: {
+          "zh-CN": `${SITE_URL}${path.replace("/en", "") || "/"}`,
+          en: `${SITE_URL}${path}`,
+        },
+      },
+    }),
+  );
 
-  return [...staticPages, ...projectPages];
+  const projectPages: MetadataRoute.Sitemap = [
+    ...projects.zh.map((project) => ({
+      url: `${SITE_URL}/projects/${project.id}`,
+      lastModified: now,
+      changeFrequency: "monthly" as const,
+      priority: 0.7,
+      alternates: {
+        languages: {
+          "zh-CN": `${SITE_URL}/projects/${project.id}`,
+          en: `${SITE_URL}/en/projects/${project.id}`,
+        },
+      },
+    })),
+    ...projects.en.map((project) => ({
+      url: `${SITE_URL}/en/projects/${project.id}`,
+      lastModified: now,
+      changeFrequency: "monthly" as const,
+      priority: 0.6,
+    })),
+  ];
+
+  return [...zhPages, ...enPages, ...projectPages];
 }

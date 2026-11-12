@@ -1,13 +1,14 @@
 import type { Metadata } from "next";
 import "./globals.css";
-import { profile } from "@/data/profile";
+import { profiles } from "@/data/profile";
 import { SITE_URL } from "@/data/site";
-import Header from "@/components/Header";
-import Footer from "@/components/Footer";
-import ScrollTop from "@/components/ScrollTop";
 
+const siteUrl = SITE_URL;
+const profile = profiles.zh;
+
+// 根布局保留中文默认 metadata；/en 子树由 app/en/layout.tsx 覆盖
 export const metadata: Metadata = {
-  metadataBase: new URL(SITE_URL),
+  metadataBase: new URL(siteUrl),
   title: {
     default: `${profile.name} · 全栈开发作品集`,
     template: `%s | ${profile.name}`,
@@ -29,7 +30,7 @@ export const metadata: Metadata = {
     description: "Java 后端 × 前端工程，关注工程质量与数据可靠性。",
     type: "website",
     locale: "zh_CN",
-    url: SITE_URL,
+    url: siteUrl,
     images: ["/og.png"],
   },
 };
@@ -44,21 +45,7 @@ export default function RootLayout({
     <html lang="zh-CN" suppressHydrationWarning>
       <body className="min-h-screen antialiased">
         <script dangerouslySetInnerHTML={{ __html: themeScript }} />
-        {/* 无障碍：键盘用户可跳过导航直达内容 */}
-        <a
-          href="#main-content"
-          className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-50 focus:rounded-lg focus:bg-primary focus:px-4 focus:py-2 focus:text-sm focus:text-primary-foreground"
-        >
-          跳到主要内容
-        </a>
-        <div className="flex min-h-screen flex-col">
-          <Header />
-          <main id="main-content" className="flex-1">
-            {children}
-          </main>
-          <Footer />
-        </div>
-        <ScrollTop />
+        {children}
       </body>
     </html>
   );
