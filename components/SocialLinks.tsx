@@ -1,4 +1,5 @@
 import { profile } from "@/data/profile";
+import CopyEmailButton from "./CopyEmailButton";
 
 // 社交链接图标全部内联 SVG，避免引入图标库依赖
 function MailIcon() {
@@ -72,7 +73,7 @@ function buildItems() {
 /**
  * 社交链接组
  * - icons：仅图标（页脚）
- * - cards：带说明的卡片（Contact 页）
+ * - cards：带说明的卡片（Contact 页），邮箱卡片附带一键复制按钮
  */
 export default function SocialLinks({
   variant = "icons",
@@ -84,14 +85,10 @@ export default function SocialLinks({
   if (variant === "cards") {
     return (
       <ul className="grid gap-4 sm:grid-cols-3">
-        {items.map((item) => (
-          <li key={item.label}>
-            <a
-              href={item.href}
-              target={item.href.startsWith("mailto:") ? undefined : "_blank"}
-              rel="noreferrer"
-              className="flex items-center gap-3 rounded-xl border border-border bg-card p-4 transition hover:border-primary/50 hover:shadow-sm"
-            >
+        {items.map((item) => {
+          const isMail = item.href.startsWith("mailto:");
+          const inner = (
+            <>
               <span
                 aria-hidden
                 className="grid h-10 w-10 shrink-0 place-items-center rounded-lg bg-muted text-foreground"
@@ -104,9 +101,31 @@ export default function SocialLinks({
                   {item.value}
                 </span>
               </span>
-            </a>
-          </li>
-        ))}
+            </>
+          );
+          return (
+            <li key={item.label}>
+              {isMail ? (
+                // 邮箱卡片：复制按钮不能嵌在链接里（交互元素嵌套），拆成兄弟节点
+                <div className="flex items-center gap-3 rounded-xl border border-border bg-card p-4 transition hover:border-primary/50 hover:shadow-sm">
+                  <a href={item.href} className="flex min-w-0 flex-1 items-center gap-3">
+                    {inner}
+                  </a>
+                  <CopyEmailButton email={item.value} />
+                </div>
+              ) : (
+                <a
+                  href={item.href}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="flex items-center gap-3 rounded-xl border border-border bg-card p-4 transition hover:border-primary/50 hover:shadow-sm"
+                >
+                  {inner}
+                </a>
+              )}
+            </li>
+          );
+        })}
       </ul>
     );
   }
