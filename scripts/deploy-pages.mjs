@@ -13,13 +13,18 @@ const SITE_URL = "https://shang1254.github.io";
 const REMOTE = "https://github.com/Shang1254/shang1254.github.io.git";
 
 function run(cmd, args, opts = {}) {
-  const r = spawnSync(cmd, args, {
+  // Windows 下 shell:true 会把整条命令拼成字符串，含空格的参数必须手动加引号
+  const useShell = process.platform === "win32";
+  const finalArgs = useShell
+    ? args.map((a) => (/\s/.test(a) ? `"${a}"` : a))
+    : args;
+  const r = spawnSync(cmd, finalArgs, {
     stdio: "inherit",
-    shell: process.platform === "win32",
+    shell: useShell,
     ...opts,
   });
   if (r.status !== 0) {
-    console.error(`✗ 命令失败：${cmd} ${args.join(" ")}`);
+    console.error(`✗ 命令失败：${cmd} ${finalArgs.join(" ")}`);
     process.exit(r.status ?? 1);
   }
 }

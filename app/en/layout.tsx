@@ -12,7 +12,8 @@ const profile = profiles.en;
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
   title: {
-    default: `${profile.name} · Full-Stack Developer Portfolio`,
+    // absolute 绕过根布局的中文模板（否则会变成 "…Portfolio | 商子轩"）
+    absolute: `${profile.name} · Full-Stack Developer Portfolio`,
     template: `%s | ${profile.name}`,
   },
   description: `${profile.name} — ${profile.status}. Full-stack developer: Java backend × frontend engineering, three shipped projects and two dev/QA internships.`,
