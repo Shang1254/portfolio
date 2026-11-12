@@ -56,13 +56,13 @@ export default function HomePage() {
 
           <dl className="mt-12 flex flex-wrap gap-x-10 gap-y-4">
             {profile.stats.map((stat) => (
-              <div key={stat.label}>
-                <dd className="text-2xl font-bold tracking-tight">
-                  {stat.value}
-                </dd>
+              <div key={stat.label} className="flex flex-col-reverse">
                 <dt className="mt-1 text-xs text-muted-foreground">
                   {stat.label}
                 </dt>
+                <dd className="text-2xl font-bold tracking-tight">
+                  {stat.value}
+                </dd>
               </div>
             ))}
           </dl>
