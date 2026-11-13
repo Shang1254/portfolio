@@ -4,7 +4,7 @@
 const BASE = process.env.SMOKE_BASE_URL ?? "http://localhost:3000";
 
 const checks = [
-  { path: "/", expect: ["商子轩", "正在求职", "精选项目", "lang=\"zh-CN\""] },
+  { path: "/", expect: ["商子轩", "正在求职", "精选项目", "poster.webp", "lang=\"zh-CN\""] },
   {
     path: "/projects",
     expect: ["共 7 个完整项目", "崇文兰庭便民缴费通", "天机阁", "知云同职", "智能班级管理系统"],

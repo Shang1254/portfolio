@@ -21,6 +21,8 @@ export default function HomePage() {
       {/* Hero */}
       <section className="border-b border-border bg-gradient-to-b from-primary/5 to-transparent">
         <div className="mx-auto w-full max-w-5xl px-4 py-16 sm:px-6 sm:py-24">
+          <div className="flex flex-col gap-10 lg:flex-row lg:items-center lg:gap-12">
+            <div className="min-w-0 flex-1">
           <p className="inline-flex items-center gap-2 rounded-full border border-border bg-card px-3 py-1 text-xs text-muted-foreground">
             <span aria-hidden className="relative flex h-2 w-2">
               <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-primary opacity-60" />
@@ -71,6 +73,19 @@ export default function HomePage() {
               </div>
             ))}
           </dl>
+            </div>
+
+            {/* 个人宣传海报（AI 生成主视觉） */}
+            <div className="shrink-0 lg:w-[340px]">
+              <img
+                src="/images/poster.webp"
+                alt="商子轩 · 全栈开发工程师个人海报"
+                width={1200}
+                height={1600}
+                className="mx-auto w-full max-w-[300px] rounded-2xl border border-border shadow-xl lg:mx-0 lg:max-w-none"
+              />
+            </div>
+          </div>
         </div>
       </section>
 

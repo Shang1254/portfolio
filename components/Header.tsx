@@ -21,7 +21,7 @@ export default function Header() {
 
   return (
     <header className="sticky top-0 z-40 border-b border-border bg-background/85 backdrop-blur">
-      <div className="mx-auto flex h-14 w-full max-w-5xl items-center justify-between px-4 sm:px-6">
+      <div className="mx-auto flex h-14 w-full max-w-5xl items-center justify-between gap-2 px-3 sm:px-6">
         <Link
           href="/"
           className="flex items-center gap-2 font-semibold tracking-tight"
@@ -32,7 +32,7 @@ export default function Header() {
           >
             商
           </span>
-          {profile.name}
+          <span className="hidden whitespace-nowrap sm:inline">{profile.name}</span>
         </Link>
         <nav aria-label={locale === "zh" ? "主导航" : "Main navigation"}>
           <ul className="flex items-center gap-0.5 text-sm sm:gap-1">
@@ -53,7 +53,7 @@ export default function Header() {
                   <Link
                     href={targetHref}
                     aria-current={active ? "page" : undefined}
-                    className={`rounded-lg px-2 py-1.5 transition sm:px-3 ${
+                    className={`whitespace-nowrap rounded-lg px-1.5 py-1.5 text-[13px] transition sm:px-3 sm:text-sm ${
                       active
                         ? "bg-muted font-medium text-foreground"
                         : "text-muted-foreground hover:text-foreground"
@@ -67,7 +67,7 @@ export default function Header() {
             <li>
               <Link
                 href={swapLocalePath(pathname)}
-                className="rounded-lg px-2 py-1.5 text-xs font-medium text-muted-foreground transition hover:bg-muted hover:text-foreground sm:px-2.5"
+                className="whitespace-nowrap rounded-lg px-1.5 py-1.5 text-xs font-medium text-muted-foreground transition hover:bg-muted hover:text-foreground sm:px-2.5"
                 aria-label={locale === "zh" ? "Switch to English" : "切换到中文"}
               >
                 {copy.langSwitch}
