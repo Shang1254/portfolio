@@ -22,6 +22,13 @@ type Profile = {
   education: { period: string; school: string; major: string; note: string }[];
   certificates: string[];
   research: { title: string; description: string };
+  tqc: {
+    title: string;
+    note: string;
+    items: { label: string; value: string }[];
+    pdf: string;
+    download: string;
+  };
 };
 
 const zh: Profile = {
@@ -120,6 +127,20 @@ const zh: Profile = {
     "知心杯心理知识竞赛一等奖",
     "校级优秀团干部",
   ],
+  tqc: {
+    title: "自我认知 · TQC 脑机分析",
+    note: "检测结果仅供参考，后天的学习与训练更为重要",
+    items: [
+      { label: "人格类型", value: "逆思勇猛型 · 老虎" },
+      { label: "脑活跃度", value: "323.71 + 4★（可塑性极高）" },
+      { label: "相对优势", value: "创新思维 / 组织管理 / 语文记忆" },
+      { label: "学习方式", value: "动机导向 · 听觉学习型" },
+      { label: "左右脑占比", value: "49.96% / 50.04%（全脑平衡）" },
+      { label: "职业倾向", value: "规划与开发类：战略策划、项目开发" },
+    ],
+    pdf: "/reports/tqc-report.pdf",
+    download: "下载完整报告（46 页）",
+  },
   research: {
     title: "国学 · 易学研究（特色背景）",
     description:
@@ -223,6 +244,20 @@ const en: Profile = {
     "Zhixin Psychology Knowledge Competition — First Prize",
     "Outstanding League Branch Secretary (school level)",
   ],
+  tqc: {
+    title: "Self-Knowledge · TQC Brain Analysis",
+    note: "Assessment results are for reference only — acquired learning and training matter more",
+    items: [
+      { label: "Personality", value: "Contrarian & Fierce · Tiger" },
+      { label: "Brain Activity (TQC)", value: "323.71 + 4★ (high plasticity)" },
+      { label: "Relative Strengths", value: "Innovative thinking / Organization & management / Verbal memory" },
+      { label: "Learning Style", value: "Motivation-driven · Auditory learner" },
+      { label: "Left / Right Brain", value: "49.96% / 50.04% (whole-brain balanced)" },
+      { label: "Career Fit", value: "Planning & development roles: strategy, project development" },
+    ],
+    pdf: "/reports/tqc-report.pdf",
+    download: "Download Full Report (46 pages)",
+  },
   research: {
     title: "Chinese Classics & I-Ching Research (Distinctive Background)",
     description:

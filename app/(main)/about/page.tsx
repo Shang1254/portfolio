@@ -163,6 +163,34 @@ export default function AboutPage() {
         </ul>
       </section>
 
+      {/* 自我认知 · TQC */}
+      <section
+        aria-labelledby="about-tqc"
+        className="mt-16 border-t border-border pt-10"
+      >
+        <SectionHeading id="about-tqc" title={profile.tqc.title} />
+        <div className="rounded-xl border border-border bg-card p-5 sm:p-6">
+          <dl className="grid gap-4 sm:grid-cols-2">
+            {profile.tqc.items.map((item) => (
+              <div key={item.label}>
+                <dt className="text-xs text-muted-foreground">{item.label}</dt>
+                <dd className="mt-1 text-sm font-medium">{item.value}</dd>
+              </div>
+            ))}
+          </dl>
+          <div className="mt-5 flex flex-wrap items-center gap-3">
+            <a
+              href={profile.tqc.pdf}
+              download="商子轩-TQC脑机分析报告.pdf"
+              className="inline-flex items-center gap-2 rounded-lg border border-border px-4 py-2 text-sm font-medium transition hover:bg-muted"
+            >
+              {profile.tqc.download}
+            </a>
+            <p className="text-xs text-muted-foreground">{profile.tqc.note}</p>
+          </div>
+        </div>
+      </section>
+
       {/* 特色背景 */}
       <section
         aria-labelledby="about-research"
