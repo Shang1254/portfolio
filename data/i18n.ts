@@ -69,6 +69,15 @@ export const ui = {
       education: "教育经历",
       certificates: "荣誉证书",
       downloadResume: "下载简历 PDF",
+      poetryLink: "阅读诗文选 →",
+    },
+    poetry: {
+      title: "诗文",
+      subtitle: "红尘居士 · 原创古典诗选",
+      intro:
+        "代码之外，我以「红尘居士」为号习诗多年——写山水、阴阳、求道与四时。以下作品选录自 QQ 空间历年说说。",
+      count: (n: number) => `共 ${n} 首`,
+      note: "诗文为中文原作，不做翻译——诗者，译则失其魂。",
     },
     contact: {
       title: "联系我",
@@ -140,6 +149,15 @@ export const ui = {
       education: "Education",
       certificates: "Honors & Certificates",
       downloadResume: "Download Résumé (PDF)",
+      poetryLink: "Read the poetry selection →",
+    },
+    poetry: {
+      title: "Poetry",
+      subtitle: "Classical-Style Chinese Verse · Pen Name Hongchen Jushi",
+      intro:
+        "Beyond code, I have written classical-style Chinese poetry for years under the pen name Hongchen Jushi (红尘居士) — landscapes, yin-yang cosmology, self-cultivation and the passing seasons. A selection from my archive.",
+      count: (n: number) => `${n} poems`,
+      note: "Poems are presented in the original Chinese — verse loses its soul in translation.",
     },
     contact: {
       title: "Get in Touch",

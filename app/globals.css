@@ -53,3 +53,30 @@ body {
 ::selection {
   background-color: color-mix(in srgb, var(--primary) 25%, transparent);
 }
+
+/* ── 诗文模块子主题：宣纸 · 墨色 · 朱砂 ─────────────────
+   与全站设计系统共存：仅作用于 .poetry-theme 容器内部 */
+.poetry-theme {
+  --paper: #f7f2e7;
+  --paper-2: #e7ddc8;
+  --ink: #2b2620;
+  --ink-soft: #7a7061;
+  --seal: #9d2f2f;
+  --seal-soft: rgba(157, 47, 47, 0.08);
+  --paper-card: #fdfaf3;
+}
+
+.dark .poetry-theme {
+  --paper: #14120f;
+  --paper-2: #2a261f;
+  --ink: #eae3d4;
+  --ink-soft: #a49a87;
+  --seal: #cf7a66;
+  --seal-soft: rgba(207, 122, 102, 0.1);
+  --paper-card: #201d18;
+}
+
+.poetry-serif {
+  font-family: "Kaiti SC", "STKaiti", "KaiTi", "Noto Serif SC", "Songti SC",
+    "SimSun", serif;
+}

@@ -21,6 +21,8 @@ const checks = [
   { path: "/projects/not-exist", status: 404, expect: ["404"] },
   { path: "/icon.svg", raw: true },
   { path: "/resume/resume.pdf", raw: true },
+  { path: "/poetry", expect: ["红尘居士", "中秋", "共 31 首", "夜幕·临"] },
+  { path: "/en/poetry", expect: ["Poetry", "Hongchen Jushi", "31 poems"] },
   { path: "/sitemap.xml", raw: true, expect: [] },
   { path: "/robots.txt", raw: true, expect: [] },
   // 英文版

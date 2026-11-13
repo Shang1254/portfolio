@@ -8,7 +8,7 @@ export const dynamic = "force-static";
 export default function sitemap(): MetadataRoute.Sitemap {
   const now = new Date();
 
-  const zhPages: MetadataRoute.Sitemap = ["", "/projects", "/about", "/contact"].map(
+  const zhPages: MetadataRoute.Sitemap = ["", "/projects", "/about", "/contact", "/poetry"].map(
     (path) => ({
       url: `${SITE_URL}${path}`,
       lastModified: now,
@@ -23,7 +23,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     }),
   );
 
-  const enPages: MetadataRoute.Sitemap = ["/en", "/en/projects", "/en/about", "/en/contact"].map(
+  const enPages: MetadataRoute.Sitemap = ["/en", "/en/projects", "/en/about", "/en/contact", "/en/poetry"].map(
     (path) => ({
       url: `${SITE_URL}${path}`,
       lastModified: now,

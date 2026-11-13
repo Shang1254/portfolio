@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 import { profiles } from "@/data/profile";
 import { ui } from "@/data/i18n";
 import SectionHeading from "@/components/SectionHeading";
@@ -172,6 +173,12 @@ export default function AboutPage() {
           <p className="mt-3 text-sm leading-relaxed text-muted-foreground sm:text-base">
             {profile.research.description}
           </p>
+          <Link
+            href="/poetry"
+            className="mt-4 inline-flex items-center text-sm font-medium text-primary hover:underline"
+          >
+            {copy.poetryLink}
+          </Link>
         </div>
       </section>
     </div>
