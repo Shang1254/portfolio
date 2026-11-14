@@ -10,6 +10,7 @@ type Profile = {
   email: string;
   github: string;
   gitee: string;
+  qq: string;
   /** 简历 PDF（About / Contact 页提供下载） */
   resumePdf: string;
   jobIntents: string[];
@@ -41,6 +42,7 @@ const zh: Profile = {
   email: "1251717963@qq.com",
   github: "https://github.com/Shang1254",
   gitee: "https://gitee.com/shang-zixuan",
+  qq: "1251717963",
   resumePdf: "/resume/resume.pdf",
   jobIntents: ["Java 后端开发", "前端开发", "后端开发"],
   stats: [
@@ -158,6 +160,7 @@ const en: Profile = {
   email: "1251717963@qq.com",
   github: "https://github.com/Shang1254",
   gitee: "https://gitee.com/shang-zixuan",
+  qq: "1251717963",
   resumePdf: "/resume/resume.pdf",
   jobIntents: ["Java Backend", "Frontend Development", "Backend Development"],
   stats: [

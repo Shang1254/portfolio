@@ -17,7 +17,7 @@ const checks = [
   { path: "/projects/class-local", expect: ["本地存储版", "真实教务数据", "应用截图"] },
   { path: "/projects/lumiere-mall", expect: ["琉光美妆", "云函数鉴权"] },
   { path: "/about", expect: ["关于我", "实习经历", "教育经历", "国学 · 易学研究", "下载简历 PDF", "TQC", "个人海报", "poster-ink.webp"] },
-  { path: "/contact", expect: ["联系我", "1251717963@qq.com", "github.com/Shang1254"] },
+  { path: "/contact", expect: ["联系我", "1251717963@qq.com", "github.com/Shang1254", "1251717963"] },
   { path: "/projects/not-exist", status: 404, expect: ["404"] },
   { path: "/icon.svg", raw: true },
   { path: "/resume/resume.pdf", raw: true },
@@ -36,12 +36,19 @@ const checks = [
   { path: "/en/projects/zhiyun", expect: ["Zhiyun Tongzhi", "Screenshots"] },
   { path: "/en/projects/not-exist", status: 404, expect: ["404"] },
   { path: "/en/about", expect: ["About Me", "Internship Experience", "Download Résumé (PDF)"] },
-  { path: "/en/contact", expect: ["Get in Touch", "github.com/Shang1254"] },
+  { path: "/en/contact", expect: ["Get in Touch", "github.com/Shang1254", "1251717963"] },
 ];
 
 let failed = 0;
 for (const { path, expect = [], status = 200, raw = false } of checks) {
-  const res = await fetch(BASE + path);
+  let res;
+  try {
+    res = await fetch(BASE + path);
+  } catch (e) {
+    console.log(`FAIL GET ${path} -> 连接失败（${String(e.cause ?? e).slice(0, 40)}）`);
+    failed++;
+    continue;
+  }
   const body = raw ? "" : await res.text();
   const statusOk = res.status === status;
   const missing = expect.filter((s) => !body.includes(s));

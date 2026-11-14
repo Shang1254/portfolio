@@ -30,6 +30,24 @@ function GitHubIcon() {
   );
 }
 
+function QQIcon() {
+  return (
+    <svg viewBox="0 0 24 24" fill="currentColor" className="h-4 w-4" aria-hidden>
+      <circle cx="12" cy="12" r="10" />
+      <text
+        x="12"
+        y="16.5"
+        textAnchor="middle"
+        fontSize="12"
+        fontWeight="700"
+        className="fill-background"
+      >
+        Q
+      </text>
+    </svg>
+  );
+}
+
 function GiteeIcon() {
   return (
     <svg viewBox="0 0 24 24" fill="currentColor" className="h-4 w-4" aria-hidden>
@@ -48,7 +66,15 @@ function GiteeIcon() {
   );
 }
 
-function buildItems(locale: Locale) {
+type SocialItem = {
+  label: string;
+  href: string;
+  value: string;
+  icon: React.ReactNode;
+  copyValue?: string;
+};
+
+function buildItems(locale: Locale): SocialItem[] {
   const profile = profiles[locale];
   const copy = ui[locale].social;
   const items = [
@@ -69,6 +95,13 @@ function buildItems(locale: Locale) {
       href: profile.gitee,
       value: profile.gitee.replace(/^https?:\/\//, ""),
       icon: <GiteeIcon />,
+    },
+    {
+      label: "QQ",
+      href: `https://user.qzone.qq.com/${profile.qq}`,
+      value: profile.qq,
+      icon: <QQIcon />,
+      copyValue: profile.qq,
     },
   ];
   return items.filter((item) => item.href);
@@ -92,7 +125,7 @@ export default function SocialLinks({
     return (
       <ul className="grid gap-4 sm:grid-cols-3">
         {items.map((item) => {
-          const isMail = item.href.startsWith("mailto:");
+          const needsCopy = item.href.startsWith("mailto:") || "copyValue" in item;
           const inner = (
             <>
               <span
@@ -111,13 +144,13 @@ export default function SocialLinks({
           );
           return (
             <li key={item.label}>
-              {isMail ? (
+              {needsCopy ? (
                 // 邮箱卡片：复制按钮不能嵌在链接里（交互元素嵌套），拆成兄弟节点
                 <div className="flex items-center gap-3 rounded-xl border border-border bg-card p-4 transition hover:border-primary/50 hover:shadow-sm">
                   <a href={item.href} className="flex min-w-0 flex-1 items-center gap-3">
                     {inner}
                   </a>
-                  <CopyEmailButton email={item.value} locale={locale} />
+                  <CopyEmailButton value={item.value} locale={locale} />
                 </div>
               ) : (
                 <a
