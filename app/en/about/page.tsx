@@ -209,6 +209,39 @@ export default function EnAboutPage() {
           </Link>
         </div>
       </section>
+
+      {/* Poster wall */}
+      <section
+        aria-labelledby="about-posters"
+        className="mt-16 border-t border-border pt-10"
+      >
+        <SectionHeading id="about-posters" title={copy.posters} />
+        <div className="grid gap-4 sm:grid-cols-2">
+          {[
+            { src: "/images/poster.webp", label: copy.posterLabels[0] },
+            { src: "/images/poster-think.webp", label: copy.posterLabels[1] },
+            { src: "/images/poster-ink.webp", label: copy.posterLabels[2] },
+            { src: "/images/poster-code.webp", label: copy.posterLabels[3] },
+          ].map((poster) => (
+            <figure
+              key={poster.src}
+              className="overflow-hidden rounded-xl border border-border bg-card"
+            >
+              <img
+                src={poster.src}
+                alt={`Poster of Shang Zixuan: ${poster.label}`}
+                width={1000}
+                height={1333}
+                loading="lazy"
+                className="h-auto w-full object-cover"
+              />
+              <figcaption className="border-t border-border px-4 py-3 text-center text-sm text-muted-foreground">
+                {poster.label}
+              </figcaption>
+            </figure>
+          ))}
+        </div>
+      </section>
     </div>
   );
 }

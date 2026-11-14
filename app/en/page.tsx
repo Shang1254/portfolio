@@ -78,10 +78,10 @@ export default function EnHomePage() {
             {/* 个人宣传海报（AI 生成主视觉） */}
             <div className="shrink-0 lg:w-[340px]">
               <img
-                src="/images/poster.webp"
+                src="/images/poster-hero.webp"
                 alt="Shang Zixuan · Full-Stack Developer poster"
-                width={1200}
-                height={1600}
+                width={1000}
+                height={1333}
                 className="mx-auto w-full max-w-[300px] rounded-2xl border border-border shadow-xl lg:mx-0 lg:max-w-none"
               />
             </div>

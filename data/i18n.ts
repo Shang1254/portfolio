@@ -70,6 +70,8 @@ export const ui = {
       certificates: "荣誉证书",
       downloadResume: "下载简历 PDF",
       poetryLink: "阅读诗文选 →",
+      posters: "个人海报",
+      posterLabels: ["极简剪影", "思考者", "水墨 · 科技", "代码人生"],
     },
     poetry: {
       title: "诗文",
@@ -150,6 +152,8 @@ export const ui = {
       certificates: "Honors & Certificates",
       downloadResume: "Download Résumé (PDF)",
       poetryLink: "Read the poetry selection →",
+      posters: "Posters",
+      posterLabels: ["Minimal Silhouette", "The Thinker", "Ink & Tech", "Code Life"],
     },
     poetry: {
       title: "Poetry",

@@ -4,7 +4,7 @@
 const BASE = process.env.SMOKE_BASE_URL ?? "http://localhost:3000";
 
 const checks = [
-  { path: "/", expect: ["商子轩", "正在求职", "精选项目", "poster.webp", "lang=\"zh-CN\""] },
+  { path: "/", expect: ["商子轩", "正在求职", "精选项目", "poster-hero.webp", "lang=\"zh-CN\""] },
   {
     path: "/projects",
     expect: ["共 7 个完整项目", "崇文兰庭便民缴费通", "天机阁", "知云同职", "智能班级管理系统"],
@@ -16,7 +16,7 @@ const checks = [
   { path: "/projects/smart-class", expect: ["智能班级管理系统", "WebSocket"] },
   { path: "/projects/class-local", expect: ["本地存储版", "真实教务数据", "应用截图"] },
   { path: "/projects/lumiere-mall", expect: ["琉光美妆", "云函数鉴权"] },
-  { path: "/about", expect: ["关于我", "实习经历", "教育经历", "国学 · 易学研究", "下载简历 PDF", "TQC"] },
+  { path: "/about", expect: ["关于我", "实习经历", "教育经历", "国学 · 易学研究", "下载简历 PDF", "TQC", "个人海报", "poster-ink.webp"] },
   { path: "/contact", expect: ["联系我", "1251717963@qq.com", "github.com/Shang1254"] },
   { path: "/projects/not-exist", status: 404, expect: ["404"] },
   { path: "/icon.svg", raw: true },
